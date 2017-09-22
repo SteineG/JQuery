@@ -1,0 +1,150 @@
+<html>
+
+    <head>
+
+        <title>Input validation</title>
+
+        <style>
+
+            body {
+                margin: 20px;
+                font-family: sans-serif;
+                font-size: 18px;
+            }
+
+            label {
+                position: relative;
+                width: 150px;
+                float: left;
+                top: 19px;
+            }
+
+            input {
+                padding: 5px 5px 10px 5px;
+                margin-left: 10px;
+                font-size: 25px;
+                border-radius: 5px;
+                border: 1px solid grey;
+                width: 320px;
+            }
+
+            #inputWrapper {
+                width: 700px;
+                margin: 0 auto;
+            }
+
+            #submitWrapper {
+                width: 400px;
+                margin: 40 auto;
+            }
+
+            #submitBtn {
+                background-color: skyblue;
+                width: 250px;
+            }
+
+            p {
+                color: red;
+                position: relative;
+                display: inline;
+            }
+
+        </style>
+
+        <!-- Import JQUERY -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- EMAIL INPUT -->
+        <div id="inputWrapper">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="eg. mail@gmail.com" name="email">
+            <p id="emailError"></p>
+        </div>
+
+        <!-- PHONE NUMBER INPUT-->
+        <div id="inputWrapper">    
+            <label for="tlf">Phone</label>
+            <input type="text" id="tlf" placeholder="99887766" name="tlf">
+            <p id="phoneError"></p>
+        </div>
+
+        <!-- PASSWORD INPUT -->
+        <div id="inputWrapper">    
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <!-- CONFIRM PASSWORD INPUT -->
+        <div id="inputWrapper">    
+            <label for="passwordConfirmed">Confirm password</label>
+            <input type="password" id="passwordConfirmed" name="passwordConfirmed">
+            <p id="passwordError"></p>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <div id="submitWrapper">
+            <input type="submit" id="submitBtn" value="Sign up">
+        </div>
+
+
+        <!-- JQUERY -->
+
+        <script type="text/javascript">
+            
+            //Regex function for checking email validation
+            function isValidEmail(email) {
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                return regex.test(email);
+            }
+            
+            //Boolean variables for checking every input
+            var emailOK = false;
+            var phoneOK = false;
+            var passwordOK = false;
+            
+            //When sign up button is clicked
+            $("#submitBtn").click(function() {
+
+                //Check if email is valid
+                if(!(isValidEmail($("#email").val()))){
+                    $("#emailError").html("Enter a valid email");
+                    emailOK = false;
+                } else {
+                    $("#emailError").hide();
+                    emailOK = true;
+                }
+
+                //Check if phone number is valid
+                if(!($.isNumeric($("#tlf").val()))){
+                    $("#phoneError").html("Enter a valid number");
+                    phoneOK = false;
+                } else {
+                    $("#phoneError").hide();
+                    phoneOK = true;
+                }
+
+                //Check if password matches
+                if($("#password").val() != $("#passwordConfirmed").val()){
+                    $("#passwordError").html("Password dont match");
+                    passwordOK = false;
+                } else {
+                    $("#passwordError").hide();
+                    passwordOK = true;
+                }
+                
+                //Check if everything is OK
+                if(emailOK && phoneOK && passwordOK){
+                    alert("You are signed up!");
+                }
+
+            });    
+
+        </script>
+
+    </body>    
+
+</html>
