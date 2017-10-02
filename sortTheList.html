@@ -1,0 +1,96 @@
+<html>
+
+    <head>
+
+        <title>Sortable list</title>
+
+        <style>
+
+            body {
+                background-color: beige;
+            }
+            
+            #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+            #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+            #sortable li span { position: absolute; margin-left: -1.3em; }
+
+        </style>
+
+        <!-- Import JQUERY -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <!-- Import JQUERY UI -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
+    </head>
+
+    <body>
+
+        <h1>Sort the list</h1>
+
+        <ul id="sortable">
+
+            <li class="ui-state-default" id="item1" value="1"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Value 1</li>
+
+            <li class="ui-state-default" value="2"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Value 2</li>
+
+            <li class="ui-state-default" value="3"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Value 3</li>
+
+            <li class="ui-state-default" value="4"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Value 4</li>
+
+            <li class="ui-state-default" value="5"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Value 5</li>
+
+        </ul>
+
+        <button id="randomize">Randomize list</button>
+
+        <button id="checkIfSorted">Check if sorted</button>
+        
+
+        <!-- JQUERY -->
+
+        <script type="text/javascript">
+
+            function randomize(){
+                var parent = $("#sortable");
+                var children = parent.children();
+
+                while(children.length) {
+                    parent.append(children.splice(Math.floor(Math.random() * children.length), 1)[0]);
+                }
+            }
+
+            //Make the list sortable
+            $(function() {
+                $("#sortable").sortable();
+                $("#sortable").disableSelection();
+                randomize();
+            });
+
+            //Randomize the list of values
+            $("#randomize").click(function(){
+                randomize();
+            });
+
+            //Check if list is sorted or not
+            $("#checkIfSorted").click(function(){
+                if(($("li").first().val() == 1) && 
+                   ($("li").first().next().val() == 2) && 
+                   ($("li").first().next().next().val() == 3) && 
+                   ($("li").first().next().next().next().val() == 4) && 
+                   ($("li").first().next().next().next().next().val() == 5)){
+                    alert("Sorted!");
+                } else {
+                    alert("Not sorted!");
+                };
+            });
+
+        </script>
+
+    </body>    
+
+</html>
